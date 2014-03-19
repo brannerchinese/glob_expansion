@@ -15,8 +15,8 @@
 ### Operators:
 
 1. default: literal characters match literally
-1. `.`: any character matches; no additional candidate list created
-1. `|`: either of two characters or groups match; no additional candidate list created
+1. `.`: any character matches; no additional candidate list created? or multiple such lists
+1. `|`: either of two characters or groups match; if both do, then one additional candidate list created
 1. `?`: one character or group matches or does not match; one additional candidate list created
 1. `*`: multiple additional candidate lists may be created
 1. `+`: multiple additional candidate lists may be created
