@@ -12,4 +12,15 @@
 1. Repeat until search string is exhausted (success) or candidate list is empty (failure).
 1. Problem: each optional-content item still creates multiple lists that have to be handled. Should this be done as sublists within `candidate` or should separate `candidate` objects be instantiated and treated in parallel?
 
+### Operators:
+
+1. default: literal characters match literally
+1. `.`: any character matches; no additional candidate list created
+1. `|`: either of two characters or groups match; no additional candidate list created
+1. `?`: one character or group matches or does not match; one additional candidate list created
+1. `*`: multiple additional candidate lists may be created
+1. `+`: multiple additional candidate lists may be created
+1. `[...]`: multiple additional candidate lists may be created
+1. `(...)`: group can be treated as a subproblem of the same type
+
 [end]
