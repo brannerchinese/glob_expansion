@@ -21,6 +21,7 @@ In order to avoid creating multiple candidate lists as much as possible, first d
 1. For the first literal in the search string, traverse target once and make "candidate" list of indices bearing elements that match the first element of the search string.
 1. Repeat for all subsequent literals.
 1. Then deal with multiple candidate lists.
+
 ---
 
 ### Operators:
