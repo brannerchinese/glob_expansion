@@ -1,16 +1,18 @@
-# fsm_constructors.py
+# object_constructors.py
 # David Prager Branner
-# 20140319
+# 20140320
 
 class State():
     """Model a node in an FSM."""
-    def __init__(self):
-        self.transitions = []
-        # Appending and removing transitions to be done manually
-        # with list.append() and list.remove()
+    def __init__(self, accepting=False, label=None):
+        # Appending and removing transitions to be done manually with 
+        # list.append() and list.remove().
+        self.transitions = set()
+        self.accepting = accepting
+        self.label = label
 
 class Transition():
-    """Model a transition in an FSM."""
+    """Model a transition (conditioned or epsilon) in an FSM."""
     def __init__(self, char=None, origin, destination):
         # char=None for epsilon: an unconditioned transition.
         self.char = char

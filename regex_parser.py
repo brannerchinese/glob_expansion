@@ -1,13 +1,13 @@
 # regex_parser.py
 # David Prager Branner
-# 20140319
+# 20140320
 
 def parse(pattern):
     """Convert regex pattern to FSM."""
     # Instantiate FSM.
     fsm = FSM()
     branches = {
-            '|': self.union(*args),
+            '|': self.either(*args),
             '?': self.question(*args),
             '*': self.star(*args),
             }
