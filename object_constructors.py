@@ -14,18 +14,19 @@ class State():
 
     # Functions to construct atomic submachines and add them to a state's
     # transitions
-    def concatenate(self, fsm1, fsm2):
+    def concatenate(self, char, state1):
         # Epsilon transition between fsm1 and fsm2.
-        self.start.transitions.append(Transition(fsm1.end, fsm2.start))
+        self.start.transitions.append(Transition(self, state))
+        self.start.transitions.append(Transition(self, char, state))
 
-    def disjunction(self, fsm1, fsm2):
+    def disjunction(self, state1, state2):
         self.start.transitions.append()
         pass
 
-    def question(self, fsm):
+    def question(self):
         pass
 
-    def star(self, fsm):
+    def star(self, state1):
         pass
 
 class Transition():
@@ -40,10 +41,6 @@ class FSM():
     """Construct finite state machine. Machine may contain sub-machines."""
     def __init__(self, start, end, *states):
         self.states = set(tuple(*states))
-        # Start and end refer to the start and end of the FSM, which may be a
-        # sub-machine. "End" is not intrinsically an accept state.
-        self.start = start
-        self.end = end
 
     def add_states(self, *states):
         self.states.update(states)
