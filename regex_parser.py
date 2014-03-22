@@ -8,22 +8,7 @@ from collections import deque
 import inspect
 import pprint
 
-#def parse(pattern):
-#    """Convert regex pattern to FSM."""
-#    # Instantiate FSM.
-#    fsm = FSM()
-#    branches = {
-#            '|': self.either(*args),
-#            '?': self.question(*args),
-#            '*': self.star(*args),
-#            }
-#    # Traverse regex pattern and concatenate FSMs for each element.
-#    for operator in pattern:
-#        fsm = fsm.concatenate(fsm, branches[operator](*args)
-#    # Return resulting FSM.
-#    return fsm
-
-Class Run():
+class Run():
     def __init__(self):
         self.run = []
 
@@ -39,7 +24,11 @@ def normalize(s):
             ']': close_group,
             '*': star,
             '?': disjunction,
+            '^': start_string,
+            '$': end_string,
+            '.': any_car,
             }
+    concatenate_me = ()
     while q:
         c = q.popleft()
         if c not in process:
@@ -50,11 +39,13 @@ def normalize(s):
 
 def open_substring(c):
     # begin new run
+    substring_open = False
     return (c, '(')
 
 def close_substring(c):
     # end run and process
     # next substring concatenates
+    substring_open = False
     return (c, ')')
 
 def disjunction(c):
@@ -63,24 +54,39 @@ def disjunction(c):
 
 def open_group(c):
     # begin series of disjunctions
+    substring_open = False
     return (c, '[')
 
 def close_group(c):
     # end series of disjunctions
     # next substring concatenates
+    substring_open = False
     return (c, ']')
 
 def star(c):
     # next substring concatenates
+    substring_open = True
     return (n, '*')
 
 def literal(n, c):
     # next substring concatenates
+    substring_open = True
     if n:
         return concatenate(n, (c, 'lit'))
     else:
-        return (c., 'lit')
+        return (c, 'lit')
+
+def start_string(c):
+    pass
+
+def end_string(c):
+    pass
+
+def any_car(c):
+    pass
+
 
 def concatenate(n, m):
-    return (n, (m), 'concat')
+    substring_open = False
+    return (n, (m), 'concat', substring_open)
 
