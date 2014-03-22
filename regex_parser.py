@@ -60,7 +60,7 @@ class Sequence:
         substring_open = False
         return (c, '[')
 
-    def close_group(self, c):
+    def close_group(self):
         # end series of disjunctions
         # next substring concatenates
         substring_open = False
