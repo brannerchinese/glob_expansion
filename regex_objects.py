@@ -4,13 +4,13 @@
 
 """"""
 
-import collections
+import heapq
 
 class State():
     """Model a state as a node in an FSM."""
     def __init__(self, accepting=False, label=None, fail=False):
-        # transitions is an ordered set.
-        self.transitions = collections.defaultdict(State)
+        # transitions is a set, but must be converted to list before use.
+        self.transitions = set()
         self.accepting = accepting
         self.fail = fail
         # Labels not implemented now.
@@ -39,10 +39,9 @@ class State():
 
 class Transition():
     """Model a transition (conditioned or epsilon) in an FSM."""
-    def __init__(self, origin, destination, char=None):
+    def __init__(self, destination, char=None):
         # char=None for epsilon: an unconditioned transition.
         self.char = char
-        self.origin = origin
         self.destination = destination
 
 class FSM():
