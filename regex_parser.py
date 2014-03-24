@@ -10,15 +10,27 @@ from collections import deque
 import inspect
 import pprint
 
-def preparse(s):
+
+def preparse(s, cursor=0):
     output = []
-    for c in s:
+    while cursor < len(s):
+        c = s[cursor]
+        print(cursor, c)
         if c == ')':
             return output
-        if c == '(':
-            output.append(preparse(s[1:]))
+            print('  )', to_append)
+        elif c == '(':
+            print('  (')
+            cursor += 1
+            to_append = preparse(s[cursor:])
+            cursor += len(to_append) + 1
+            print(to_append, cursor, 'on return')
         else:
-            output.append(c)
+            to_append = c
+            print('  c', to_append)
+            cursor += 1
+        output.append(to_append)
+    return output
 
 
 class Sequence:
