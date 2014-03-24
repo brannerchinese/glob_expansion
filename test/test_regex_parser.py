@@ -27,6 +27,9 @@ def test_preparse_08():
 def test_preparse_09():
     assert P.preparse('a(b(c)d)e') == ['a', ['b', ['c'], 'd'], 'd']
 
+def test_preparse_10():
+    assert P.preparse('a(b(cd))e') == ['a', ['b', ['c', 'd']], 'd']
+
 s = P.Sequence('ab')
 
 def test_literal_01():
