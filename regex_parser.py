@@ -15,10 +15,10 @@ def preparse(s, cursor=0):
     output = []
     while cursor < len(s):
         c = s[cursor]
-        print(cursor, c)
+        print(cursor, 'of', len(s), c)
         if c == ')':
-            return output
             print('  )', to_append)
+            return output
         elif c == '(':
             print('  (')
             cursor += 1
@@ -30,6 +30,7 @@ def preparse(s, cursor=0):
             print('  c', to_append)
             cursor += 1
         output.append(to_append)
+        print('    cursor:', cursor, 'len(s)', len(s))
     return output
 
 
