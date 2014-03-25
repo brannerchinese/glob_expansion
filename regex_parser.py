@@ -10,27 +10,44 @@ from collections import deque
 import inspect
 import pprint
 
+class Counter():
+    def __init__(self):
+        self.counter = 0
+        self.total = 0
 
-def preparse(s, cursor=0):
+def preparse(s, counter=None):
+    if counter == None:
+        counter = Counter()
+        counter.total = len(s)
+    cursor = 0
     output = []
-    while cursor < len(s):
+    length_last_output = len(output)
+    while cursor < len(s) and counter.counter < counter.total:
+#        print(counter, 'of', len(s), c)
         c = s[cursor]
-        print(cursor, 'of', len(s), c)
+        print(counter.counter, 'of', len(s), c)
+        counter.counter += 1
+        to_append = []
         if c == ')':
-            print('  )', to_append)
+            print('  ) returning:', output[-1])
+#            output.append(to_append)
             return output
         elif c == '(':
             print('  (')
-            cursor += 1
-            to_append = preparse(s[cursor:])
-            cursor += len(to_append) + 1
-            print(to_append, cursor, 'on return')
+            output.append(preparse(s[cursor+1:], counter))
+            print('   ', output[-1], 'counter:', counter.counter, 'on return')
+            print('    increase cursor by', counter.counter)
+            cursor += counter.counter - length_last_output
         else:
-            to_append = c
-            print('  c', to_append)
+            output.append(c)
             cursor += 1
-        output.append(to_append)
-        print('    cursor:', cursor, 'len(s)', len(s))
+            print('  c', c)
+            print('    counter:', counter.counter)
+        length_last_output = len(output)
+#        output.append(to_append)
+        print('    output now:', output)
+        print('    counter:', counter.counter, 'len(s)', len(s))
+    print('    cursor: {}, len(s): {}'.format(cursor, len(s)))
     return output
 
 
