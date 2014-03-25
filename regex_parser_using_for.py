@@ -25,7 +25,6 @@ def preparse(s, counter=None):
         c = s[cursor]
         counter.counter += 1
         cursor += 1
-        to_append = []
         if c == ')':
             return output
         elif c == '(':
