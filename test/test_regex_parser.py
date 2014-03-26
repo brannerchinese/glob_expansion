@@ -1,40 +1,43 @@
 import regex_parser as P
+from collections import deque
 
-def test_main_01():
-    assert P.main('abc') == ['a', 'b', 'c']
+def test_preparse_01():
+    assert P.preparse(deque('abc'))[1] == ['a', 'b', 'c']
 
-def test_main_02():
-    assert P.main('a(b)c') == ['a', ['b'], 'c']
+def test_preparse_02():
+    assert P.preparse(deque('a(b)c'))[1] == ['a', ['b'], 'c']
 
-def test_main_03():
-    assert P.main('a(bcd)e') == ['a', ['b', 'c', 'd'], 'e']
+def test_preparse_03():
+    assert P.preparse(deque('a(bcd)e'))[1] == ['a', ['b', 'c', 'd'], 'e']
 
-def test_main_04():
-    assert P.main('a(bc)de') == ['a', ['b', 'c'], 'd', 'e']
+def test_preparse_04():
+    assert P.preparse(deque('a(bc)de'))[1] == ['a', ['b', 'c'], 'd', 'e']
 
-def test_main_05():
-    assert P.main('a(bcde)') == ['a', ['b', 'c', 'd', 'e']]
+def test_preparse_05():
+    assert P.preparse(deque('a(bcde)'))[1] == ['a', ['b', 'c', 'd', 'e']]
 
-def test_main_06():
-    assert P.main('(abcde)') == [['a', 'b', 'c', 'd', 'e']]
+def test_preparse_06():
+    assert P.preparse(deque('(abcde)'))[1] == [['a', 'b', 'c', 'd', 'e']]
 
-def test_main_07():
-    assert P.main('a(b)c(d)e') == ['a', ['b'], 'c', ['d'], 'e']
+def test_preparse_07():
+    assert P.preparse(deque('a(b)c(d)e'))[1] == ['a', ['b'], 'c', ['d'], 'e']
 
-def test_main_08():
-    assert P.main('a(bc)(d)e') == ['a', ['b', 'c'], ['d'], 'e']
+def test_preparse_08():
+    assert P.preparse(deque('a(bc)(d)e'))[1] == ['a', ['b', 'c'], ['d'], 'e']
 
-def test_main_09():
-    assert P.main('a(b(c)d)e') == ['a', ['b', ['c'], 'd'], 'e']
+def test_preparse_09():
+    assert P.preparse(deque('a(b(c)d)e'))[1] == ['a', ['b', ['c'], 'd'], 'e']
 
-def test_main_10():
-    assert P.main('a(b(cd))e') == ['a', ['b', ['c', 'd']], 'e']
+def test_preparse_10():
+    assert P.preparse(deque('a(b(cd))e'))[1] == ['a', ['b', ['c', 'd']], 'e']
 
-def test_main_11():
-    assert P.main('a(b(c))(d)e') == ['a', ['b', ['c']], ['d'], 'e']
+def test_preparse_11():
+    assert P.preparse(deque('a(b(c))(d)e'))[1] == [
+            'a', ['b', ['c']], ['d'], 'e']
 
-def test_main_12():
-    assert P.main('a(b((c)))(d)e') == ['a', ['b', [['c']]], ['d'], 'e']
+def test_preparse_12():
+    assert P.preparse(deque('a(b((c)))(d)e'))[1] == [
+            'a', ['b', [['c']]], ['d'], 'e']
 
 #s = P.Sequence('ab')
 #
