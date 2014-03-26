@@ -39,6 +39,21 @@ def test_preparse_12():
     assert P.preparse(deque('a(b((c)))(d)e'))[1] == [
             'a', ['b', [['c']]], ['d'], 'e']
 
+def test_preparse_13():
+    assert P.preparse(deque('a[bc]d'))[1] == ['a', ['b', '|', 'c'], 'd']
+
+def test_preparse_14():
+    assert P.preparse(deque('a[b[c]d'))[1] == [
+            'a', ['b', '|', '[', '|', 'c'], 'd']
+
+def test_preparse_15():
+    assert P.preparse(deque('a[b(c]d'))[1] == [
+            'a', ['b', '|', '(', '|', 'c'], 'd']
+
+def test_preparse_16():
+    assert P.preparse(deque('a[b)c]d'))[1] == [
+            'a', ['b', '|', ')', '|', 'c'], 'd']
+
 #s = P.Sequence('ab')
 #
 #def test_literal_01():
