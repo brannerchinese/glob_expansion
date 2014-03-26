@@ -20,17 +20,18 @@ def preparse(q, output=None, group=False):
         elif c == '(' and not group:
             q, temp_output = preparse(q)
             output.append(temp_output)
+        # Character set: treat as sublist containing series of ORs.
         elif c == '[' and not group:
             q, temp_output = preparse(q, group=True)
             output.append(temp_output)
             group = False
-        # Character set: treat as sublist containing series of ORs.
         elif c == ']' and group:
             # If end of character group, remove last OR.
             output.pop()
             break
         elif group:
             output.extend([c, '|'])
+        # Handle undifferentiated single character as last resort.
         else:
             output.append(c)
     return q, output
