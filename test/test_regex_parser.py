@@ -1,4 +1,4 @@
-import regex_parser2 as P
+import regex_parser as P
 
 def test_main_01():
     assert P.main('abc') == ['a', 'b', 'c']

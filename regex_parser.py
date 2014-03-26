@@ -1,37 +1,24 @@
 # regex_parser.py
 # David Prager Branner
-# 20140322
+# 201400326
 
-# to do: escaped characters
-
-"""Convert input regex string to normalized form."""
+"""Parse regex string expression and produce formal representation."""
 
 from collections import deque
-import pprint
 
-class Counter():
-    def __init__(self):
-        self.counter = 0
-        self.total = 0
+def main(s):
+    return preparse(deque(s))[1]
 
-def preparse(s, counter=None):
-    if counter == None:
-        counter = Counter()
-        counter.total = len(s)
-    cursor = 0
-    output = []
-    length_last_output = len(output)
-    while cursor < len(s) and counter.counter < counter.total:
-        c = s[cursor]
-        counter.counter += 1
-        cursor += 1
-        to_append = []
+def preparse(q, output=None):
+    if output == None:
+        output = []
+    while q:
+        c = q.popleft()
         if c == ')':
-            return output
+            break
         elif c == '(':
-            output.append(preparse(s[cursor:], counter))
-            cursor += counter.counter - length_last_output - 1
+            q, temp_output = preparse(q)
+            output.append(temp_output)
         else:
             output.append(c)
-        length_last_output = len(output)
-    return output
+    return q, output
