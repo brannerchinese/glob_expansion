@@ -9,9 +9,16 @@ Presently handled:
     Single characters, explicitly shown.
     Character sets within square brackets [...], all explicitly shown.
     Groups of characters or character sets.
+
+Planned:
+    Disjunction (|).
+    Zero or one (?).
+    Zero or more (*).
+    Any character (.).
 """
 
 from collections import deque
+import regex_node as N
 
 def main(s):
     return preparse(deque(s))[1]
@@ -46,3 +53,25 @@ def preparse(q, output=None, group=False):
 
 def make_objects(q):
     """Convert deque-output of preparse() to list of Node-objects."""
+    output = []
+    branch_dict = {
+            '*': N.Star,
+            '|': N.Or,
+            '?': N.Question,
+            '.': N.Period,}
+    for item in q:
+        # Skip empty items.
+        if len(item) == 0:
+            continue
+        # Send sublists to recursion.
+        if len(item) > 1:
+            output.append(make_objects(item))
+        # Simplify redundantly nested single items such as [[2]] => 2.
+        while isinstance(item, list):
+            item = item[0]
+        # Special characters.
+        if item in branch_dict:
+            output.append(branch_dict[item](item))
+        # Single character.
+        output.append(N.Literal(item))
+    return output

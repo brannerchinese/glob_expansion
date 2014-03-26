@@ -1,5 +1,6 @@
 import regex_parser as P
 from collections import deque
+import random, string
 
 def test_preparse_01():
     assert P.preparse(deque('abc'))[1] == ['a', 'b', 'c']
@@ -53,6 +54,19 @@ def test_preparse_15():
 def test_preparse_16():
     assert P.preparse(deque('a[b)c]d'))[1] == [
             'a', ['b', '|', ')', '|', 'c'], 'd']
+
+def test_make_objects_01():
+    q = deque('a')
+    _, q = P.preparse(q)
+    nodes = P.make_objects(q)
+    assert isinstance(nodes[0], P.N.Literal)
+
+def test_make_objects_02():
+    random_string = ''.join(random.sample(string.ascii_letters, 30))
+    q = deque(random_string)
+    _, q = P.preparse(q)
+    nodes = P.make_objects(q)
+    assert all([isinstance(node, P.N.Literal) for node in nodes])
 
 #s = P.Sequence('ab')
 #
