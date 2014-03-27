@@ -23,28 +23,28 @@ import regex_node as N
 def main(s):
     return preparse(deque(s))[1]
 
-def preparse(q, output=None, group=False):
+def preparse(q, output=None, charset=False):
     """Change flat input deque to nested deque, nesting groups and char-sets."""
     if output == None:
         output = []
     while q:
         c = q.popleft()
         # Group: treat as sublist.
-        if c == ')' and not group:
+        if c == ')' and not charset:
             break
-        elif c == '(' and not group:
+        elif c == '(' and not charset:
             q, temp_output = preparse(q)
             output.append(temp_output)
         # Character set: treat as sublist containing series of ORs.
-        elif c == '[' and not group:
-            q, temp_output = preparse(q, group=True)
+        elif c == '[' and not charset:
+            q, temp_output = preparse(q, charset=True)
             output.append(temp_output)
-            group = False
-        elif c == ']' and group:
+            charset = False
+        elif c == ']' and charset:
             # If end of character set, remove last OR.
             output.pop()
             break
-        elif group:
+        elif charset:
             output.extend([c, '|'])
         # Handle undifferentiated single character as last resort.
         else:
