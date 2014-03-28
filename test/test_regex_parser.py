@@ -58,15 +58,15 @@ def test_preparse_16():
 def test_make_objects_01():
     q = deque('a')
     _, q = P.preparse(q)
-    nodes = P.make_objects(q)
-    assert isinstance(nodes[0], P.N.Literal)
+    machines = P.make_objects(q)
+    assert isinstance(machines[0], P.M.Literal)
 
 def test_make_objects_02():
     random_string = ''.join(random.sample(string.ascii_letters, 30))
     q = deque(random_string)
     _, q = P.preparse(q)
-    nodes = P.make_objects(q)
-    assert all([isinstance(node, P.N.Literal) for node in nodes])
+    machines = P.make_objects(q)
+    assert all([isinstance(machine, P.M.Literal) for machine in machines])
 
 #s = P.Sequence('ab')
 #
@@ -84,6 +84,6 @@ def test_make_objects_02():
 #    assert s.normalize() == (
 #            (
 #                (
-#                    ('a', 'lit'), ('b', 'lit'), '_'), 
-#                ('c', 'lit'), '_'), 
+#                    ('a', 'lit'), ('b', 'lit'), '_'),
+#                ('c', 'lit'), '_'),
 #            ('d', 'lit'), '_')

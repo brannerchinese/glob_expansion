@@ -18,7 +18,7 @@ Planned:
 """
 
 from collections import deque
-import regex_node as N
+import regex_machine as M
 
 def main(s):
     return preparse(deque(s))[1]
@@ -52,13 +52,13 @@ def preparse(q, output=None, charset=False):
     return q, output
 
 def make_objects(q):
-    """Convert deque-output of preparse() to list of Node-objects."""
+    """Convert deque-output of preparse() to list of Machine-objects."""
     output = []
     branch_dict = {
-            '*': N.Star,
-            '|': N.Or,
-            '?': N.Question,
-            '.': N.Period,}
+            '*': M.Star,
+            '|': M.Or,
+            '?': M.Question,
+            '.': M.Period,}
     for item in q:
         # Skip empty items.
         if len(item) == 0:
@@ -73,5 +73,5 @@ def make_objects(q):
         if item in branch_dict:
             output.append(branch_dict[item](item))
         # Single character.
-        output.append(N.Literal(item))
+        output.append(M.Literal(item))
     return output
