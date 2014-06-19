@@ -9,6 +9,8 @@ This program runs in Python3 and Python2.7. The glob syntax currently treated is
  * `[abc]`: one character from among `a, b, c`
  * `[!abc]` or `[^abc]`: one character not from among `a, b, c`
 
+This was done as a project in the [Iron Forger](https://hackpad.com/Iron-Forger-Week-4-Construct-a-Simple-Regular-Expression-Engine-OqmrqTqgq1G) series, summer 2014.
+
 ### To run
 
 Run `glob_match.py` using the module's `main` function:
