@@ -52,6 +52,8 @@ There is a simpler version of the program, `glob_match_simple.py` that treats on
 
 ### Workings
 
+ 1. This is a DFA implementation: to the extent that this project models finite automata, it is deterministic — it uses a queue to keep track of the next comparisons that are to be made, and makes them in a predictable, reproducible order.
+
  1. Uses two cursors to keep track of string indices, one for `p` and one for `s`.
 
  1. The pattern is sent initially to a lexer, `lexer.py`, which decides what function is to be applied to each element of the pattern. Here character sets (positive and negative) are gathered into a single unit.
