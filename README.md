@@ -54,7 +54,7 @@ There is a simpler version of the program, `glob_match_simple.py` that treats on
 
 ### Workings
 
- 1. This is a DFA implementation: to the extent that this project models finite automata, it is deterministic — it uses a queue to keep track of the next comparisons that are to be made, and makes them in a predictable, reproducible order.
+ 1. This is equivalent to a DFA implementation: to the extent that this project models finite automata, it is deterministic — it uses a queue to keep track of the next comparisons that are to be made, and makes them in a predictable, reproducible order.
 
  1. Uses two cursors to keep track of string indices, one for `p` and one for `s`.
 
